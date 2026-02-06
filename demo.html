@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo - I-Shopper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D5F4C;
+            --primary-light: #4A8B6F;
+            --accent: #D4A574;
+            --text: #1A1A1A;
+            --text-light: #666;
+            --bg: #FDFCF9;
+            --bg-alt: #F5F2ED;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Navigation - same as index */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(253, 252, 249, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(45, 95, 76, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .demo-hero {
+            margin-top: 80px;
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+        }
+
+        .demo-hero h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .demo-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Video Section */
+        .video-section {
+            padding: 4rem 2rem;
+            background: var(--white);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .video-placeholder {
+            aspect-ratio: 16/9;
+            background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg) 100%);
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px dashed var(--accent);
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .video-placeholder h3 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .video-placeholder p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 500px;
+        }
+
+        .video-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.6;
+        }
+
+        /* Example Scenarios */
+        .scenarios-section {
+            padding: 5rem 2rem;
+            background: var(--bg);
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .scenarios-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .scenario-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .scenario-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(45, 95, 76, 0.12);
+            border-color: var(--accent);
+        }
+
+        .scenario-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .scenario-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .scenario-card .user-query {
+            background: var(--bg-alt);
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-style: italic;
+            color: var(--text-light);
+            border-left: 3px solid var(--accent);
+        }
+
+        .scenario-card .agent-result {
+            padding: 1rem 0;
+            color: var(--text);
+        }
+
+        .scenario-card .result-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .scenario-card .result-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .scenario-card .result-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* Interactive Demo */
+        .interactive-demo {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .demo-interface {
+            max-width: 900px;
+            margin: 3rem auto 0;
+            background: var(--bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 2px solid rgba(45, 95, 76, 0.1);
+        }
+
+        .demo-chat {
+            background: var(--white);
+            border-radius: 12px;
+            padding: 2rem;
+            min-height: 400px;
+            margin-bottom: 1.5rem;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 1.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message-bubble {
+            display: inline-block;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            max-width: 70%;
+        }
+
+        .message.user .message-bubble {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .message.agent .message-bubble {
+            background: var(--bg-alt);
+            color: var(--text);
+        }
+
+        .demo-input-area {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .demo-input-area input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: 2px solid var(--bg-alt);
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .demo-input-area input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .demo-input-area button {
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .demo-input-area button:hover {
+            background: var(--primary-light);
+        }
+
+        .demo-suggestions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .suggestion-chip {
+            padding: 0.5rem 1rem;
+            background: var(--white);
+            border: 1px solid var(--accent);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-chip:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+
+        /* CTA */
+        .demo-cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .demo-cta h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .demo-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--accent);
+            color: var(--text);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .demo-hero h1 {
+                font-size: 2rem;
+            }
+
+            .scenarios-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .message-bubble {
+                max-width: 85%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">I-Shopper</a>
+            <ul class="nav-links">
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="market.html">Market</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="demo-hero">
+        <h1>See I-Shopper in action</h1>
+        <p>Watch how our AI-powered shopping agent transforms hours of research into confident decisions in minutes.</p>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section">
+        <div class="section-container">
+            <div class="video-placeholder">
+                <div class="video-icon">🎬</div>
+                <h3>Demo Video Coming Soon</h3>
+                <p>We're putting together a comprehensive demo video. In the meantime, check out the example scenarios below to see how I-Shopper works.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Example Scenarios -->
+    <section class="scenarios-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Real Examples</div>
+                <h2>See how it works</h2>
+                <p>Here are some real-world scenarios showing how I-Shopper helps you make smarter shopping decisions.</p>
+            </div>
+            <div class="scenarios-grid">
+                <div class="scenario-card">
+                    <div class="scenario-icon">💻</div>
+                    <h3>Finding the Perfect Laptop</h3>
+                    <div class="user-query">
+                        "I need a laptop for video editing. Budget around $1,500. Prefer something portable but with good performance."
+                    </div>
+                    <div class="agent-result">
+                        <strong>I-Shopper searches across 20+ retailers and analyzes:</strong>
+                        <ul class="result-list">
+                            <li>CPU/GPU performance benchmarks for video editing</li>
+                            <li>Real user reviews from video editors</li>
+                            <li>Weight vs. battery life trade-offs</li>
+                            <li>Price history and current deals</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Result:</strong> Personalized shortlist of 3 laptops with honest comparisons and a clear recommendation based on your priorities.</p>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-icon">👟</div>
+                    <h3>Running Shoes for Marathon Training</h3>
+                    <div class="user-query">
+                        "Training for my first marathon. Need running shoes with good cushioning. Tend to overpronate slightly."
+                    </div>
+                    <div class="agent-result">
+                        <strong>I-Shopper considers:</strong>
+                        <ul class="result-list">
+                            <li>Biomechanical analysis of overpronation support</li>
+                            <li>Cushioning specs and durability for high mileage</li>
+                            <li>Reviews from marathon runners</li>
+                            <li>Sizing consistency across brands</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Result:</strong> Top 3 recommendations with specific reasons why each might work for you, plus sizing tips.</p>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-icon">🎧</div>
+                    <h3>Noise-Canceling Headphones</h3>
+                    <div class="user-query">
+                        "Best noise-canceling headphones for flights and working in coffee shops. Care more about comfort than sound quality."
+                    </div>
+                    <div class="agent-result">
+                        <strong>I-Shopper analyzes:</strong>
+                        <ul class="result-list">
+                            <li>Active noise cancellation effectiveness</li>
+                            <li>Comfort ratings for extended wear</li>
+                            <li>Battery life for long flights</li>
+                            <li>Bluetooth connectivity reliability</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Result:</strong> Recommendations prioritizing comfort and ANC over audiophile features, with price-to-value assessment.</p>
+                    </div>
+                </div>
+
+                <div class="scenario-card">
+                    <div class="scenario-icon">🏠</div>
+                    <h3>Smart Home Security Camera</h3>
+                    <div class="user-query">
+                        "Need an outdoor security camera. Want good night vision and no monthly subscription fees if possible."
+                    </div>
+                    <div class="agent-result">
+                        <strong>I-Shopper evaluates:</strong>
+                        <ul class="result-list">
+                            <li>Night vision quality and range</li>
+                            <li>Local vs. cloud storage options</li>
+                            <li>Privacy and data security features</li>
+                            <li>Weather resistance and durability</li>
+                        </ul>
+                        <p style="margin-top: 1rem;"><strong>Result:</strong> Comparison of cameras with no subscription vs. optional subscription, highlighting long-term cost differences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo -->
+    <section class="interactive-demo">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Try It Out</div>
+                <h2>Interactive demo</h2>
+                <p>Try asking I-Shopper about a product you're considering. (This is a simulated demo.)</p>
+            </div>
+            <div class="demo-interface">
+                <div class="demo-chat" id="demo-chat">
+                    <div class="message agent">
+                        <div class="message-bubble">
+                            Hi! I'm your I-Shopper agent. What are you shopping for today?
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-input-area">
+                    <input type="text" id="demo-input" placeholder="Try: 'I need a new coffee maker under $100'">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+                <div class="demo-suggestions">
+                    <div class="suggestion-chip" onclick="suggestQuery('I need a coffee maker under $100')">Coffee maker</div>
+                    <div class="suggestion-chip" onclick="suggestQuery('Best wireless earbuds for running')">Running earbuds</div>
+                    <div class="suggestion-chip" onclick="suggestQuery('Ergonomic office chair recommendation')">Office chair</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="demo-cta">
+        <h2>Ready to try the real thing?</h2>
+        <p>Join our waitlist for early access to I-Shopper.</p>
+        <a href="index.html#waitlist" class="btn">Join the Waitlist</a>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 I-Shopper. <a href="index.html">Back to Home</a></p>
+    </footer>
+
+    <script>
+        const demoResponses = {
+            'coffee': "Great! Let me search for coffee makers under $100. I'm looking at: drip coffee makers, single-serve pod machines, and French presses. I'll analyze features like brew time, capacity, programmability, and user reviews. Based on your budget, I'd recommend checking out the Ninja CE251 (12-cup, programmable, $79), Cuisinart DCC-3200P1 (glass carafe, excellent reviews, $89), or if you want something simpler, the Bodum Chambord French Press ($40). Which features matter most to you?",
+            'earbuds': "Perfect! For running earbuds, I'm prioritizing: secure fit, water resistance, and good sound quality. I'm analyzing the Jabra Elite 7 Active ($179 - excellent stability, IP57 rating), Beats Fit Pro ($199 - great bass, secure wingtips), and Jaybird Vista 2 ($149 - military-grade durability). All have decent battery life. Do you prefer over-ear hooks or in-ear only?",
+            'chair': "Let me help you find an ergonomic office chair! I'm considering: lumbar support quality, adjustability, build quality, and long-term comfort reviews. Top options: Herman Miller Aeron (used, ~$600 - industry standard), Steelcase Gesture (~$1,100 new - most adjustable), or if budget-friendly, Branch Ergonomic Chair ($350 - great value). What's your budget range and do you have any specific pain points?",
+            'default': "I'm analyzing products across multiple retailers for you! In a real session, I would: 1) Search 15-20 major e-commerce platforms, 2) Analyze hundreds of reviews and specs, 3) Compare prices and features, 4) Generate a personalized shortlist based on your preferences. This demo is simplified, but the real I-Shopper does all this in seconds. Interested in learning more?"
+        };
+
+        function sendMessage() {
+            const input = document.getElementById('demo-input');
+            const chat = document.getElementById('demo-chat');
+            const query = input.value.trim();
+            
+            if (!query) return;
+            
+            // Add user message
+            const userMsg = document.createElement('div');
+            userMsg.className = 'message user';
+            userMsg.innerHTML = `<div class="message-bubble">${query}</div>`;
+            chat.appendChild(userMsg);
+            
+            input.value = '';
+            
+            // Add agent response after delay
+            setTimeout(() => {
+                const agentMsg = document.createElement('div');
+                agentMsg.className = 'message agent';
+                
+                let response = demoResponses.default;
+                const lowerQuery = query.toLowerCase();
+                
+                if (lowerQuery.includes('coffee')) {
+                    response = demoResponses.coffee;
+                } else if (lowerQuery.includes('earbud') || lowerQuery.includes('headphone')) {
+                    response = demoResponses.earbuds;
+                } else if (lowerQuery.includes('chair')) {
+                    response = demoResponses.chair;
+                }
+                
+                agentMsg.innerHTML = `<div class="message-bubble">${response}</div>`;
+                chat.appendChild(agentMsg);
+                chat.scrollTop = chat.scrollHeight;
+            }, 1000);
+        }
+
+        function suggestQuery(query) {
+            document.getElementById('demo-input').value = query;
+            sendMessage();
+        }
+
+        // Allow enter key to send
+        document.getElementById('demo-input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>

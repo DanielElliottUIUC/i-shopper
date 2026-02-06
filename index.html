@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I-Shopper - Your Private Shopping Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D5F4C;
+            --primary-light: #4A8B6F;
+            --accent: #D4A574;
+            --text: #1A1A1A;
+            --text-light: #666;
+            --bg: #FDFCF9;
+            --bg-alt: #F5F2ED;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(253, 252, 249, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(45, 95, 76, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            margin-top: 80px;
+            padding: 6rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: -20%;
+            width: 60%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(74, 139, 111, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(45, 95, 76, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 1s ease 0.6s backwards;
+        }
+
+        .feature-grid-mini {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .feature-card-mini {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card-mini:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(45, 95, 76, 0.12);
+        }
+
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card-mini h3 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card-mini p {
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-card {
+            text-align: center;
+            padding: 2rem;
+            background: var(--bg-alt);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+
+        /* How It Works */
+        .how-section {
+            padding: 5rem 2rem;
+            background: var(--bg);
+        }
+
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .step-card {
+            position: relative;
+            padding: 2rem;
+            background: var(--white);
+            border-radius: 16px;
+            border: 2px solid var(--bg-alt);
+            transition: all 0.4s ease;
+        }
+
+        .step-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-8px);
+            box-shadow: 0 12px 32px rgba(45, 95, 76, 0.15);
+        }
+
+        .step-number {
+            position: absolute;
+            top: -20px;
+            left: 2rem;
+            width: 48px;
+            height: 48px;
+            background: var(--primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 12px rgba(45, 95, 76, 0.3);
+        }
+
+        .step-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin: 1rem 0 1rem;
+        }
+
+        .step-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* FAQ Section */
+        .passive-mode {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .passive-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .passive-card {
+            background: var(--bg-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .passive-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(45, 95, 76, 0.12);
+        }
+
+        .passive-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .passive-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .passive-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        .passive-example {
+            margin-top: 4rem;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 2px solid var(--accent);
+        }
+
+        .example-header h4 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .example-timeline {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .example-item {
+            display: grid;
+            grid-template-columns: 140px 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(45, 95, 76, 0.1);
+        }
+
+        .example-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .example-time {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            padding-top: 0.25rem;
+        }
+
+        .example-content {
+            background: var(--white);
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            line-height: 1.7;
+            color: var(--text-light);
+        }
+
+        .example-content strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .faq-grid {
+            display: grid;
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 3rem auto 0;
+        }
+
+        .faq-item {
+            background: var(--bg);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+        }
+
+        .faq-question {
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease, padding 0.3s ease;
+            padding: 0 2rem;
+            color: var(--text-light);
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 2rem 1.5rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .waitlist-form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .waitlist-form input {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .waitlist-form button {
+            padding: 1rem 2rem;
+            background: var(--accent);
+            color: var(--text);
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .waitlist-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 3rem 2rem 2rem;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 3rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        .footer-links h4 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-cta {
+                justify-content: center;
+            }
+
+            .stats-grid, .steps-container {
+                grid-template-columns: 1fr;
+            }
+
+            .passive-features {
+                grid-template-columns: 1fr;
+            }
+
+            .example-item {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">I-Shopper</a>
+            <ul class="nav-links">
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="market.html">Market</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>Shopping shouldn't feel like work</h1>
+                <p class="hero-subtitle">Your personal shopping agent that works for you—not advertisers. Make confident purchase decisions in minutes, not hours.</p>
+                <div class="hero-cta">
+                    <a href="#waitlist" class="btn btn-primary">Join the Waitlist</a>
+                    <a href="demo.html" class="btn btn-secondary">See How It Works</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="feature-grid-mini">
+                    <div class="feature-card-mini">
+                        <div class="feature-icon">🎯</div>
+                        <h3>Personalized</h3>
+                        <p>Learns your preferences over time</p>
+                    </div>
+                    <div class="feature-card-mini">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Unbiased</h3>
+                        <p>No ads. No hidden agendas.</p>
+                    </div>
+                    <div class="feature-card-mini">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Automated</h3>
+                        <p>From search to checkout</p>
+                    </div>
+                    <div class="feature-card-mini">
+                        <div class="feature-icon">💡</div>
+                        <h3>Smart</h3>
+                        <p>Powered by advanced AI</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section class="problem-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">The Problem</div>
+                <h2>Online shopping is broken</h2>
+                <p>You spend hours comparing products, reading reviews, and second-guessing decisions. Meanwhile, recommendation algorithms push what pays them the most—not what's best for you.</p>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">89%</div>
+                    <div class="stat-label">Spend 10+ minutes researching each purchase</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">61%</div>
+                    <div class="stat-label">Willing to pay for personalized experiences</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">$6.8T</div>
+                    <div class="stat-label">Global e-commerce market in 2025</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">How It Works</div>
+                <h2>Shopping made effortless</h2>
+                <p>Our AI-powered agent handles the heavy lifting so you can make confident decisions quickly.</p>
+            </div>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Tell us what you need</h3>
+                    <p>Describe what you're looking for in natural language. Our agent understands your intent and preferences.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>We search everywhere</h3>
+                    <p>Our agent searches across all major marketplaces and retailers to find the best options—unbiased by ads or sponsorships.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>Get personalized recommendations</h3>
+                    <p>Receive a curated shortlist of products that match your preferences, complete with honest comparisons and insights.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Passive Mode -->
+    <section class="passive-mode">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Passive Mode</div>
+                <h2>Let I-Shopper anticipate your needs</h2>
+                <p>Beyond on-demand shopping, I-Shopper works proactively in the background—learning your calendar, gift-giving patterns, and interests to send you timely recommendations before you even start searching.</p>
+            </div>
+            <div class="passive-features">
+                <div class="passive-card">
+                    <div class="passive-icon">🎁</div>
+                    <h3>Smart Gift Reminders</h3>
+                    <p>Tell I-Shopper about birthdays, anniversaries, and people you buy gifts for. We'll proactively suggest thoughtful gift ideas based on their interests—weeks before the occasion, so you're never scrambling at the last minute.</p>
+                </div>
+                <div class="passive-card">
+                    <div class="passive-icon">📅</div>
+                    <h3>Event-Driven Shopping Lists</h3>
+                    <p>Connect your calendar and interests. Traveling next month? I-Shopper suggests travel essentials. Holiday party coming up? Get hosting recommendations. Weather changing? Seasonal wardrobe updates arrive automatically.</p>
+                </div>
+                <div class="passive-card">
+                    <div class="passive-icon">🔄</div>
+                    <h3>Replenishment Tracking</h3>
+                    <p>For items you buy regularly—skincare, supplements, household goods—I-Shopper learns your usage patterns and reminds you to reorder at the perfect time, complete with price comparisons.</p>
+                </div>
+            </div>
+            <div class="passive-example">
+                <div class="example-header">
+                    <h4>Example: Passive Mode in Action</h4>
+                </div>
+                <div class="example-timeline">
+                    <div class="example-item">
+                        <div class="example-time">Monday, Feb 3</div>
+                        <div class="example-content">
+                            <strong>I-Shopper notices:</strong> Your mom's birthday is in 3 weeks (Feb 24). You mentioned she likes gardening and mystery novels.
+                        </div>
+                    </div>
+                    <div class="example-item">
+                        <div class="example-time">Friday, Feb 7</div>
+                        <div class="example-content">
+                            <strong>You receive:</strong> "Hey! Your mom's birthday is coming up. Based on her interests, here are 3 gift ideas: a rare heirloom seed collection ($45), the new Louise Penny novel ($28), or a personalized garden tool set ($67)."
+                        </div>
+                    </div>
+                    <div class="example-item">
+                        <div class="example-time">Saturday, Feb 8</div>
+                        <div class="example-content">
+                            <strong>You approve:</strong> The seed collection sounds perfect. I-Shopper handles checkout and delivery—gift arrives Feb 20, perfectly timed.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">FAQ</div>
+                <h2>Common questions</h2>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">How is I-Shopper different from Amazon or Google Shopping?</div>
+                    <div class="faq-answer">
+                        Unlike platforms that prioritize ad revenue, I-Shopper works exclusively for you. We don't accept sponsorships, don't boost products that pay us more, and don't sell your data to advertisers. Our recommendations are based solely on what's best for your needs and preferences.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How does the personalization work?</div>
+                    <div class="faq-answer">
+                        I-Shopper learns from your purchase decisions over time. Every time you choose (or don't choose) a recommendation, our AI refines its understanding of your preferences—what features matter to you, which brands you trust, and how you balance quality vs. price.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Is my data private?</div>
+                    <div class="faq-answer">
+                        Absolutely. Your shopping preferences and history are encrypted and never sold to third parties. We build your personalized model locally, and your data is used solely to improve your experience—not to target you with ads.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">How much does it cost?</div>
+                    <div class="faq-answer">
+                        We're currently in private beta. Pricing will be announced before our public launch. We're committed to keeping it affordable—much less than the time you'd waste on inefficient shopping decisions.
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <div class="faq-question">Can I-Shopper actually make purchases for me?</div>
+                    <div class="faq-answer">
+                        Yes! With your permission, I-Shopper can handle the entire purchase process. You'll always have final approval before any payment is processed, giving you full control while eliminating the hassle.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="waitlist" class="cta-section">
+        <div class="section-container">
+            <h2>Ready to shop smarter?</h2>
+            <p>Join our waitlist for early access and exclusive beta perks.</p>
+            <form class="waitlist-form">
+                <input type="email" placeholder="Enter your email" required>
+                <button type="submit">Join Waitlist</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <h3>I-Shopper</h3>
+                <p>Your private shopping agent. Shopping that works for you, not advertisers.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Product</h4>
+                <ul>
+                    <li><a href="demo.html">Demo</a></li>
+                    <li><a href="market.html">Market</a></li>
+                    <li><a href="#waitlist">Waitlist</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Company</h4>
+                <ul>
+                    <li><a href="team.html">Team</a></li>
+                    <li><a href="careers.html">Careers</a></li>
+                    <li><a href="mailto:contact@placeholder.com">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h4>Legal</h4>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 I-Shopper. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-item').forEach(item => {
+            item.querySelector('.faq-question').addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Waitlist form submission
+        document.querySelector('.waitlist-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thanks for joining the waitlist! We\'ll be in touch soon.');
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>

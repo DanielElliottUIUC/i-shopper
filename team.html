@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team - I-Shopper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D5F4C;
+            --primary-light: #4A8B6F;
+            --accent: #D4A574;
+            --text: #1A1A1A;
+            --text-light: #666;
+            --bg: #FDFCF9;
+            --bg-alt: #F5F2ED;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(253, 252, 249, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(45, 95, 76, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .team-hero {
+            margin-top: 80px;
+            padding: 4rem 2rem 3rem;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+            text-align: center;
+        }
+
+        .team-hero h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .team-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .team-card {
+            background: var(--bg-alt);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 2px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(45, 95, 76, 0.15);
+            border-color: var(--accent);
+        }
+
+        .team-photo {
+            width: 100%;
+            height: 300px;
+            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+            color: var(--white);
+        }
+
+        .team-info {
+            padding: 2rem;
+        }
+
+        .team-name {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-title {
+            font-size: 1.1rem;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-bio {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-highlights {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .team-highlights li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .team-highlights li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .placeholder-card {
+            border: 2px dashed var(--accent);
+            background: var(--bg);
+        }
+
+        .placeholder-card .team-photo {
+            background: linear-gradient(135deg, var(--bg-alt) 0%, var(--bg) 100%);
+            color: var(--accent);
+        }
+
+        .placeholder-tag {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--white);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+        }
+
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .mission-section h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .mission-section p {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            opacity: 0.95;
+        }
+
+        /* Values */
+        .values-section {
+            padding: 5rem 2rem;
+            background: var(--bg);
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .value-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .value-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(45, 95, 76, 0.12);
+        }
+
+        .value-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .value-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* CTA */
+        .team-cta {
+            padding: 5rem 2rem;
+            background: var(--white);
+            text-align: center;
+        }
+
+        .team-cta h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .team-cta p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(45, 95, 76, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .team-hero h1 {
+                font-size: 2rem;
+            }
+
+            .team-grid, .values-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">I-Shopper</a>
+            <ul class="nav-links">
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="market.html">Market</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="team-hero">
+        <h1>Meet the team</h1>
+        <p>We're building the future of consumer-aligned commerce with a team passionate about AI, consumer welfare, and creating technology that truly serves people.</p>
+    </section>
+
+    <!-- Team Members -->
+    <section class="team-section">
+        <div class="section-container">
+            <div class="team-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 3rem auto 0;">
+                <!-- Daniel Elliott -->
+                <div class="team-card">
+                    <div class="team-photo">👤</div>
+                    <div class="team-info">
+                        <h3 class="team-name">Daniel Elliott</h3>
+                        <div class="team-title">CEO & Founder</div>
+                        <p class="team-bio">
+                            Daniel is the founder and CEO of I-Shopper, bringing expertise in AI alignment and a passion for building technology that serves consumer interests. He founded AI Alignment @ Illinois while pursuing his degree in Computer Engineering at UIUC.
+                        </p>
+                        <ul class="team-highlights">
+                            <li>Founder, AI Alignment @ Illinois</li>
+                            <li>Computer Engineering, UIUC</li>
+                            <li>Focused on consumer-aligned AI systems</li>
+                            <li>Cozad New Venture Challenge participant</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 2rem; color: var(--text-light); font-size: 1.1rem;">
+                Growing the team soon. <a href="careers.html" style="color: var(--primary); font-weight: 600;">See open positions →</a>
+            </p>
+        </div>
+    </section>
+
+    <!-- Mission -->
+    <section class="mission-section">
+        <div class="mission-content">
+            <h2>Our Mission</h2>
+            <p>
+                We believe shopping should work for consumers, not advertisers. Every day, billions of people waste hours sifting through biased recommendations optimized for revenue, not value. We're building AI-powered shopping agents that truly align with consumer interests—making purchase decisions faster, smarter, and more transparent. Our mission is to return control of the shopping experience to the people who matter most: the shoppers themselves.
+            </p>
+        </div>
+    </section>
+
+    <!-- Values -->
+    <section class="values-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Our Values</div>
+                <h2>What drives us</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">🎯</div>
+                    <h3>Consumer-First</h3>
+                    <p>Every decision we make prioritizes consumer welfare over advertiser revenue. No compromises.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🔬</div>
+                    <h3>Research-Driven</h3>
+                    <p>We build on rigorous technical foundations and continuously push the boundaries of what's possible.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🛡️</div>
+                    <h3>Privacy & Trust</h3>
+                    <p>Your data belongs to you. We earn trust through transparency and respect for user privacy.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">⚡</div>
+                    <h3>Move Fast</h3>
+                    <p>We have a limited window to capture this market. Speed and execution matter.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🤝</div>
+                    <h3>Collaborative</h3>
+                    <p>The best ideas come from open dialogue. We value diverse perspectives and honest feedback.</p>
+                </div>
+
+                <div class="value-card">
+                    <div class="value-icon">🌱</div>
+                    <h3>Long-Term Thinking</h3>
+                    <p>We're building infrastructure for the next decade of commerce, not chasing short-term metrics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="team-cta">
+        <div class="section-container">
+            <h2>Want to join us?</h2>
+            <p>We're hiring exceptional engineers and designers to build the future of shopping.</p>
+            <a href="careers.html" class="btn">View Open Positions</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 I-Shopper. <a href="index.html">Back to Home</a></p>
+    </footer>
+</body>
+</html>

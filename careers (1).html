@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Careers - I-Shopper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D5F4C;
+            --primary-light: #4A8B6F;
+            --accent: #D4A574;
+            --text: #1A1A1A;
+            --text-light: #666;
+            --bg: #FDFCF9;
+            --bg-alt: #F5F2ED;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(253, 252, 249, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(45, 95, 76, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .careers-hero {
+            margin-top: 80px;
+            padding: 5rem 2rem 4rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .careers-hero h1 {
+            font-size: 3rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .careers-hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+
+        .careers-badge {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--text);
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        /* Why Join */
+        .why-join {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .benefit-card {
+            background: var(--bg-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(45, 95, 76, 0.12);
+        }
+
+        .benefit-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .benefit-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* Open Positions */
+        .positions-section {
+            padding: 5rem 2rem;
+            background: var(--bg);
+        }
+
+        .positions-grid {
+            display: grid;
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .position-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 2px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .position-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(45, 95, 76, 0.15);
+        }
+
+        .position-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+        }
+
+        .position-title {
+            flex: 1;
+        }
+
+        .position-title h3 {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .position-meta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 0.5rem;
+        }
+
+        .meta-tag {
+            background: var(--bg-alt);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .position-description {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .position-requirements h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .position-requirements ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .position-requirements li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .position-requirements li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        .apply-btn {
+            margin-top: 1.5rem;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: var(--white);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .apply-btn:hover {
+            background: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(45, 95, 76, 0.3);
+        }
+
+        /* Culture */
+        .culture-section {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .culture-content {
+            max-width: 800px;
+            margin: 3rem auto 0;
+            text-align: center;
+        }
+
+        .culture-quote {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-style: italic;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .culture-attributes {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+            text-align: left;
+        }
+
+        .culture-item {
+            padding: 1.5rem;
+            background: var(--bg-alt);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .culture-item h4 {
+            color: var(--primary);
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .culture-item p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* CTA */
+        .careers-cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .careers-cta h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .careers-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .contact-email {
+            font-size: 1.3rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .careers-hero h1 {
+                font-size: 2rem;
+            }
+
+            .benefits-grid, .culture-attributes {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">I-Shopper</a>
+            <ul class="nav-links">
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="market.html">Market</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="careers-hero">
+        <h1>Build the future of shopping</h1>
+        <p>Join us at the ground floor of consumer-aligned AI. We're hiring exceptional engineers and designers at UIUC to transform how billions of people shop online.</p>
+        <div class="careers-badge">🎓 Student-Friendly • Based at UIUC</div>
+    </section>
+
+    <!-- Why Join -->
+    <section class="why-join">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Why I-Shopper</div>
+                <h2>Why join us now</h2>
+                <p>This is your chance to work on cutting-edge AI while building something that genuinely helps people. Ground-floor opportunity, real impact, exceptional team.</p>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">🚀</div>
+                    <h3>Ground Floor</h3>
+                    <p>Shape product direction, company culture, and technical architecture from day one.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🧠</div>
+                    <h3>Cutting-Edge AI</h3>
+                    <p>Work with LLMs, reinforcement learning, and personalization at scale.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">💡</div>
+                    <h3>Real Impact</h3>
+                    <p>Build technology that saves time and improves decisions for millions of shoppers.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Consumer-First Mission</h3>
+                    <p>Work for users, not advertisers. Build products you'd actually want to use.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">📚</div>
+                    <h3>Learn & Grow</h3>
+                    <p>Work alongside experienced founders and gain startup experience early in your career.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌟</div>
+                    <h3>Equity & Growth</h3>
+                    <p>Meaningful equity stake. Grow with us as we scale.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Open Positions -->
+    <section class="positions-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Open Positions</div>
+                <h2>Join the team</h2>
+                <p>We're looking for talented engineers and designers who are passionate about consumer technology and want to make a real impact.</p>
+            </div>
+
+            <div class="positions-grid">
+                <!-- E-Commerce Engineer -->
+                <div class="position-card">
+                    <div class="position-header">
+                        <div class="position-title">
+                            <h3>E-Commerce Engineer</h3>
+                            <div class="position-meta">
+                                <span class="meta-tag">Full-Time / Part-Time</span>
+                                <span class="meta-tag">UIUC</span>
+                                <span class="meta-tag">Engineering</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="position-description">
+                        We're looking for engineers with e-commerce platform experience to help build our marketplace integrations, product search infrastructure, and data pipelines. You'll work on the core systems that power our shopping agent's ability to search across retailers and analyze products at scale.
+                    </p>
+                    <div class="position-requirements">
+                        <h4>What you'll do:</h4>
+                        <ul>
+                            <li>Build integrations with major e-commerce platforms (Amazon, Shopify, etc.)</li>
+                            <li>Design scalable product search and retrieval systems</li>
+                            <li>Develop data pipelines for product information and pricing</li>
+                            <li>Optimize performance for real-time product comparisons</li>
+                            <li>Work with our ML team to serve recommendations at scale</li>
+                        </ul>
+                    </div>
+                    <div class="position-requirements" style="margin-top: 1.5rem;">
+                        <h4>You're a great fit if you have:</h4>
+                        <ul>
+                            <li>Experience with e-commerce platforms or marketplace APIs</li>
+                            <li>Strong backend engineering skills (Python, Node.js, or Go)</li>
+                            <li>Knowledge of web scraping, APIs, and data extraction</li>
+                            <li>Understanding of distributed systems and caching strategies</li>
+                            <li>Passion for consumer products and user experience</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:careers@placeholder.com?subject=E-Commerce Engineer Application" class="apply-btn">Apply Now</a>
+                </div>
+
+                <!-- UX Designer -->
+                <div class="position-card">
+                    <div class="position-header">
+                        <div class="position-title">
+                            <h3>UX Designer - Trust & Shopping Flows</h3>
+                            <div class="position-meta">
+                                <span class="meta-tag">Full-Time / Part-Time</span>
+                                <span class="meta-tag">UIUC</span>
+                                <span class="meta-tag">Design</span>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="position-description">
+                        We're seeking a UX designer who understands how to build trust in AI-powered shopping experiences. You'll design the flows that help users feel confident delegating high-stakes purchase decisions to our agent, from product recommendations to checkout experiences.
+                    </p>
+                    <div class="position-requirements">
+                        <h4>What you'll do:</h4>
+                        <ul>
+                            <li>Design trustworthy AI interaction patterns for shopping decisions</li>
+                            <li>Create intuitive flows for product comparison and selection</li>
+                            <li>Build verification and transparency features into the agent experience</li>
+                            <li>Conduct user research with target customers</li>
+                            <li>Design for both web and mobile platforms</li>
+                        </ul>
+                    </div>
+                    <div class="position-requirements" style="margin-top: 1.5rem;">
+                        <h4>You're a great fit if you have:</h4>
+                        <ul>
+                            <li>Experience designing e-commerce or shopping experiences</li>
+                            <li>Strong portfolio showing user-centered design process</li>
+                            <li>Understanding of trust and transparency in AI systems</li>
+                            <li>Proficiency with Figma or similar design tools</li>
+                            <li>User research and testing experience</li>
+                            <li>Bonus: Experience designing conversational interfaces or agents</li>
+                        </ul>
+                    </div>
+                    <a href="mailto:careers@placeholder.com?subject=UX Designer Application" class="apply-btn">Apply Now</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Culture -->
+    <section class="culture-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Our Culture</div>
+                <h2>What it's like to work here</h2>
+            </div>
+            <div class="culture-content">
+                <div class="culture-quote">
+                    "We're building something people actually want to use. No dark patterns, no ad optimization, just technology that genuinely helps people make better decisions."
+                </div>
+                <div class="culture-attributes">
+                    <div class="culture-item">
+                        <h4>🚀 Move Fast</h4>
+                        <p>We have a limited window to capture this market. We value speed, execution, and getting things done.</p>
+                    </div>
+                    <div class="culture-item">
+                        <h4>🧠 Learn & Iterate</h4>
+                        <p>We're in uncharted territory. Embrace experimentation, learn from failures, and improve quickly.</p>
+                    </div>
+                    <div class="culture-item">
+                        <h4>🤝 Collaborate</h4>
+                        <p>The best ideas come from diverse perspectives. We value open dialogue and constructive feedback.</p>
+                    </div>
+                    <div class="culture-item">
+                        <h4>🎯 User-Obsessed</h4>
+                        <p>Everything we build starts with: "Does this actually help the user?" Not the advertiser. The user.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="careers-cta">
+        <div class="section-container">
+            <h2>Don't see your role?</h2>
+            <p>We're always looking for exceptional people. If you're passionate about consumer AI and want to make an impact, we'd love to hear from you.</p>
+            <p class="contact-email">careers@placeholder.com</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 I-Shopper. <a href="index.html">Back to Home</a></p>
+    </footer>
+</body>
+</html>

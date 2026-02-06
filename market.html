@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market - I-Shopper</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2D5F4C;
+            --primary-light: #4A8B6F;
+            --accent: #D4A574;
+            --text: #1A1A1A;
+            --text-light: #666;
+            --bg: #FDFCF9;
+            --bg-alt: #F5F2ED;
+            --white: #FFFFFF;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(253, 252, 249, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(45, 95, 76, 0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .market-hero {
+            margin-top: 80px;
+            padding: 4rem 2rem 3rem;
+            background: linear-gradient(135deg, var(--bg) 0%, var(--bg-alt) 100%);
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .market-hero h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .market-hero p {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Market Size */
+        .market-size {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .section-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .section-header p {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        .big-stat {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            border-radius: 20px;
+            margin: 3rem 0;
+            color: var(--white);
+        }
+
+        .big-stat-number {
+            font-size: 5rem;
+            font-weight: 700;
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .big-stat-label {
+            font-size: 1.3rem;
+            opacity: 0.95;
+        }
+
+        .stats-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat-box {
+            background: var(--bg-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .stat-box:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(45, 95, 76, 0.12);
+        }
+
+        .stat-box h3 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-box p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        /* Opportunity Section */
+        .opportunity-section {
+            padding: 5rem 2rem;
+            background: var(--bg);
+        }
+
+        .opportunity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .opportunity-card {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 95, 76, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .opportunity-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(45, 95, 76, 0.15);
+            border-color: var(--accent);
+        }
+
+        .opportunity-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .opportunity-card h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .opportunity-card p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .opportunity-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .opportunity-card li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-light);
+        }
+
+        .opportunity-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Why Now */
+        .why-now {
+            padding: 5rem 2rem;
+            background: var(--white);
+        }
+
+        .timeline {
+            max-width: 900px;
+            margin: 3rem auto 0;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--accent);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            grid-column: 2;
+        }
+
+        .timeline-item:nth-child(even) .timeline-empty {
+            grid-column: 1;
+        }
+
+        .timeline-content {
+            background: var(--bg-alt);
+            padding: 2rem;
+            border-radius: 12px;
+            position: relative;
+            border: 2px solid var(--accent);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            top: 2rem;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border: 4px solid var(--accent);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-content p {
+            color: var(--text-light);
+            line-height: 1.7;
+        }
+
+        /* CTA */
+        .market-cta {
+            padding: 5rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            text-align: center;
+            color: var(--white);
+        }
+
+        .market-cta h2 {
+            font-size: 2.5rem;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .market-cta p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: var(--accent);
+            color: var(--text);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--text);
+            color: var(--white);
+            padding: 2rem;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .market-hero h1 {
+                font-size: 2rem;
+            }
+
+            .stats-row, .opportunity-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .big-stat-number {
+                font-size: 3.5rem;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item {
+                grid-template-columns: 1fr;
+                padding-left: 3rem;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                grid-column: 1;
+            }
+
+            .timeline-dot {
+                left: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="logo">I-Shopper</a>
+            <ul class="nav-links">
+                <li><a href="demo.html">Demo</a></li>
+                <li><a href="market.html">Market</a></li>
+                <li><a href="team.html">Team</a></li>
+                <li><a href="careers.html">Careers</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="market-hero">
+        <div class="hero-container">
+            <h1>A massive market waiting to be transformed</h1>
+            <p>E-commerce is a $6.8 trillion industry, but shopping is still broken. Recommendation systems optimize for ad revenue, not consumer welfare. That's our opportunity.</p>
+        </div>
+    </section>
+
+    <!-- Market Size -->
+    <section class="market-size">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Market Size</div>
+                <h2>The numbers speak for themselves</h2>
+                <p>Global e-commerce is growing at 18-20% annually, with consumers increasingly demanding personalized experiences that actually serve their interests.</p>
+            </div>
+
+            <div class="big-stat">
+                <div class="big-stat-number">$6.8T</div>
+                <div class="big-stat-label">Global e-commerce market in 2025, projected to reach $8T by 2027</div>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-box">
+                    <h3>2.77B</h3>
+                    <p>Global online shoppers worldwide</p>
+                </div>
+                <div class="stat-box">
+                    <h3>21%</h3>
+                    <p>Of all retail purchases happen online</p>
+                </div>
+                <div class="stat-box">
+                    <h3>63%</h3>
+                    <p>Of e-commerce sales happen on mobile</p>
+                </div>
+            </div>
+
+            <div class="stats-row" style="margin-top: 2rem;">
+                <div class="stat-box">
+                    <h3>89%</h3>
+                    <p>Spend 10+ minutes researching purchases</p>
+                </div>
+                <div class="stat-box">
+                    <h3>61%</h3>
+                    <p>Willing to pay more for personalization</p>
+                </div>
+                <div class="stat-box">
+                    <h3>87%</h3>
+                    <p>Research online before making purchases</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunity -->
+    <section class="opportunity-section">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">The Opportunity</div>
+                <h2>Why consumers need I-Shopper</h2>
+                <p>Shopping agents represent a fundamental shift in how people make purchase decisions—moving from ad-driven recommendations to consumer-aligned AI.</p>
+            </div>
+
+            <div class="opportunity-grid">
+                <div class="opportunity-card">
+                    <div class="opportunity-icon">🎯</div>
+                    <h3>Massive Cognitive Load</h3>
+                    <p>Online shopping demands sustained attention and effort. Consumers face:</p>
+                    <ul>
+                        <li>Opportunity cost of time spent researching</li>
+                        <li>Decision fatigue leading to delayed purchases</li>
+                        <li>Irrational decisions under time pressure</li>
+                        <li>Information overload increasing return rates</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">This cognitive burden is a real pain point consumers will pay to solve.</p>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-icon">⚡</div>
+                    <h3>Low Risk, High Value</h3>
+                    <p>Shopping agents have unique advantages for deployment:</p>
+                    <ul>
+                        <li>Actions are naturally reversible (free returns)</li>
+                        <li>Payment step serves as verification node</li>
+                        <li>Few catastrophic failure modes</li>
+                        <li>Strong willingness-to-pay from consumers</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">This makes shopping an ideal domain for agentic AI systems.</p>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-icon">📊</div>
+                    <h3>High-Quality Data Pipeline</h3>
+                    <p>Shopping has a powerful structural advantage:</p>
+                    <ul>
+                        <li>Payment = mandatory user verification</li>
+                        <li>Direct preference signals (not just clicks)</li>
+                        <li>Clear feedback loop for model improvement</li>
+                        <li>Compound learning from every transaction</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">This creates defensibility through personalized user models.</p>
+                </div>
+
+                <div class="opportunity-card">
+                    <div class="opportunity-icon">🚀</div>
+                    <h3>Startup Window is Open</h3>
+                    <p>Tech giants won't build this because of conflicts:</p>
+                    <ul>
+                        <li>Google, Meta, Amazon rely on ad revenue</li>
+                        <li>Consumer-side agents hurt their business model</li>
+                        <li>They optimize for advertiser ROI, not buyer welfare</li>
+                        <li>This creates a limited-time window for startups</li>
+                    </ul>
+                    <p style="margin-top: 1rem;">We can capture this market before incumbents adapt.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Now -->
+    <section class="why-now">
+        <div class="section-container">
+            <div class="section-header">
+                <div class="section-label">Timing</div>
+                <h2>Why now is the moment</h2>
+                <p>Agentic AI, consumer awareness, and market dynamics have aligned to create a once-in-a-generation opportunity.</p>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2022-2023</div>
+                        <h3>LLM Breakthrough</h3>
+                        <p>GPT-4 and Claude demonstrate reasoning capabilities needed for complex shopping decisions. Agentic systems become viable.</p>
+                    </div>
+                    <div class="timeline-empty"></div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-empty"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2024</div>
+                        <h3>Consumer Awareness</h3>
+                        <p>Public understands AI agents. ChatGPT reaches 100M users. People ready to trust AI for high-stakes decisions like purchases.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025</div>
+                        <h3>Market Inflection</h3>
+                        <p>E-commerce hits $6.8T. Mobile commerce dominates. Consumers demand personalization but increasingly distrust ad-driven platforms.</p>
+                    </div>
+                    <div class="timeline-empty"></div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-empty"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025-2026</div>
+                        <h3>The Window Opens</h3>
+                        <p>Tech giants locked into ad-based models. Startups can move faster and align with consumers. This window closes when incumbents adapt or acquire.</p>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="market-cta">
+        <div class="section-container">
+            <h2>Join us in transforming shopping</h2>
+            <p>We're building the future of consumer-aligned commerce. Be part of it.</p>
+            <a href="index.html#waitlist" class="btn">Join the Waitlist</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 I-Shopper. <a href="index.html">Back to Home</a></p>
+    </footer>
+</body>
+</html>
