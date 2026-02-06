@@ -561,12 +561,45 @@
                             Hi! I'm your I-Shopper agent. What are you shopping for today?
                         </div>
                     </div>
+                    <div class="message user" style="display: none;" data-prefill="1">
+                        <div class="message-bubble">I need a good laptop for video editing under $1,500</div>
+                    </div>
+                    <div class="message agent" style="display: none;" data-prefill="2">
+                        <div class="message-bubble">
+                            Perfect! Let me search for video editing laptops under $1,500. I'm analyzing CPU/GPU performance benchmarks, real user reviews from video editors, and comparing specs across 20+ retailers.<br><br>
+                            Here are my top 3 recommendations:<br><br>
+                            <strong>1. Dell XPS 15 (9530)</strong> - $1,449<br>
+                            • Intel i7-13700H, RTX 4050, 16GB RAM<br>
+                            • Excellent color accuracy (100% sRGB)<br>
+                            • Best for: Premiere Pro, DaVinci Resolve<br><br>
+                            <strong>2. ASUS ProArt P16</strong> - $1,399<br>
+                            • AMD Ryzen 9, RTX 4060, 32GB RAM<br>
+                            • Great thermals for sustained workloads<br>
+                            • Best for: After Effects, 4K editing<br><br>
+                            <strong>3. MacBook Pro 14" M3</strong> - $1,499 (refurb)<br>
+                            • M3 chip, 18GB unified memory<br>
+                            • Best battery life (18+ hours)<br>
+                            • Best for: Final Cut Pro, portability<br><br>
+                            Which features matter most to you—raw performance, portability, or battery life?
+                        </div>
+                    </div>
+                    <div class="message user" style="display: none;" data-prefill="3">
+                        <div class="message-bubble">I think the ASUS looks good. Can you check if there are any better deals?</div>
+                    </div>
+                    <div class="message agent" style="display: none;" data-prefill="4">
+                        <div class="message-bubble">
+                            Great choice! The ASUS ProArt P16 is excellent for video editing. Let me check for better pricing...<br><br>
+                            <strong>Price Comparison:</strong><br>
+                            • Amazon: $1,399 (in stock, Prime shipping)<br>
+                            • B&H Photo: $1,349 (in stock, free shipping)<br>
+                            • Best Buy: $1,399 (limited stock)<br>
+                            • ASUS Direct: $1,449 (student discount available: -$50)<br><br>
+                            <strong>Best deal: B&H Photo at $1,349</strong> - saves you $50 vs. Amazon, includes free expedited shipping, arrives in 3-4 days.<br><br>
+                            Would you like me to proceed with this purchase? I can handle checkout and you'll approve before payment is processed.
+                        </div>
+                    </div>
                 </div>
-                <div class="demo-input-area">
-                    <input type="text" id="demo-input" placeholder="Try: 'I need a new coffee maker under $100'">
-                    <button onclick="sendMessage()">Send</button>
-                </div>
-                <div class="demo-suggestions">
+                <div class="demo-suggestions" style="margin-top: 1.5rem;">
                     <div class="suggestion-chip" onclick="suggestQuery('I need a coffee maker under $100')">Coffee maker</div>
                     <div class="suggestion-chip" onclick="suggestQuery('Best wireless earbuds for running')">Running earbuds</div>
                     <div class="suggestion-chip" onclick="suggestQuery('Ergonomic office chair recommendation')">Office chair</div>
@@ -588,27 +621,61 @@
     </footer>
 
     <script>
-        const demoResponses = {
-            'coffee': "Great! Let me search for coffee makers under $100. I'm looking at: drip coffee makers, single-serve pod machines, and French presses. I'll analyze features like brew time, capacity, programmability, and user reviews. Based on your budget, I'd recommend checking out the Ninja CE251 (12-cup, programmable, $79), Cuisinart DCC-3200P1 (glass carafe, excellent reviews, $89), or if you want something simpler, the Bodum Chambord French Press ($40). Which features matter most to you?",
-            'earbuds': "Perfect! For running earbuds, I'm prioritizing: secure fit, water resistance, and good sound quality. I'm analyzing the Jabra Elite 7 Active ($179 - excellent stability, IP57 rating), Beats Fit Pro ($199 - great bass, secure wingtips), and Jaybird Vista 2 ($149 - military-grade durability). All have decent battery life. Do you prefer over-ear hooks or in-ear only?",
-            'chair': "Let me help you find an ergonomic office chair! I'm considering: lumbar support quality, adjustability, build quality, and long-term comfort reviews. Top options: Herman Miller Aeron (used, ~$600 - industry standard), Steelcase Gesture (~$1,100 new - most adjustable), or if budget-friendly, Branch Ergonomic Chair ($350 - great value). What's your budget range and do you have any specific pain points?",
-            'default': "I'm analyzing products across multiple retailers for you! In a real session, I would: 1) Search 15-20 major e-commerce platforms, 2) Analyze hundreds of reviews and specs, 3) Compare prices and features, 4) Generate a personalized shortlist based on your preferences. This demo is simplified, but the real I-Shopper does all this in seconds. Interested in learning more?"
-        };
+        let demoComplete = false;
 
-        function sendMessage() {
-            const input = document.getElementById('demo-input');
+        // Auto-start the demo when page loads
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                startDemo();
+            }, 500);
+        });
+
+        function startDemo() {
             const chat = document.getElementById('demo-chat');
-            const query = input.value.trim();
             
-            if (!query) return;
+            // Show all pre-filled messages with delays
+            const prefilledMessages = chat.querySelectorAll('[data-prefill]');
+            prefilledMessages.forEach((msg, index) => {
+                setTimeout(() => {
+                    msg.style.display = 'block';
+                    chat.scrollTop = chat.scrollHeight;
+                    
+                    // After last message, enable suggestion chips
+                    if (index === prefilledMessages.length - 1) {
+                        demoComplete = true;
+                    }
+                }, (index + 1) * 1200);
+            });
+        }
+
+        function suggestQuery(query) {
+            if (!demoComplete) return; // Don't allow clicks until demo is done
+            
+            const chat = document.getElementById('demo-chat');
+            
+            // Clear all messages except the first agent greeting
+            const messages = chat.querySelectorAll('.message');
+            messages.forEach((msg, index) => {
+                if (index > 0) {
+                    msg.remove();
+                }
+            });
+            
+            // Hide prefilled messages
+            const prefilledMessages = chat.querySelectorAll('[data-prefill]');
+            prefilledMessages.forEach(msg => {
+                msg.style.display = 'none';
+            });
+            
+            // Reset state
+            demoComplete = false;
             
             // Add user message
             const userMsg = document.createElement('div');
             userMsg.className = 'message user';
             userMsg.innerHTML = `<div class="message-bubble">${query}</div>`;
             chat.appendChild(userMsg);
-            
-            input.value = '';
+            chat.scrollTop = chat.scrollHeight;
             
             // Add agent response after delay
             setTimeout(() => {
@@ -629,20 +696,18 @@
                 agentMsg.innerHTML = `<div class="message-bubble">${response}</div>`;
                 chat.appendChild(agentMsg);
                 chat.scrollTop = chat.scrollHeight;
-            }, 1000);
+                
+                // Re-enable buttons after response
+                demoComplete = true;
+            }, 1500);
         }
 
-        function suggestQuery(query) {
-            document.getElementById('demo-input').value = query;
-            sendMessage();
-        }
-
-        // Allow enter key to send
-        document.getElementById('demo-input').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                sendMessage();
-            }
-        });
+        const demoResponses = {
+            'coffee': "Great! Let me search for coffee makers under $100. I'm looking at: drip coffee makers, single-serve pod machines, and French presses. I'll analyze features like brew time, capacity, programmability, and user reviews. Based on your budget, I'd recommend checking out the Ninja CE251 (12-cup, programmable, $79), Cuisinart DCC-3200P1 (glass carafe, excellent reviews, $89), or if you want something simpler, the Bodum Chambord French Press ($40). Which features matter most to you?",
+            'earbuds': "Perfect! For running earbuds, I'm prioritizing: secure fit, water resistance, and good sound quality. I'm analyzing the Jabra Elite 7 Active ($179 - excellent stability, IP57 rating), Beats Fit Pro ($199 - great bass, secure wingtips), and Jaybird Vista 2 ($149 - military-grade durability). All have decent battery life. Do you prefer over-ear hooks or in-ear only?",
+            'chair': "Let me help you find an ergonomic office chair! I'm considering: lumbar support quality, adjustability, build quality, and long-term comfort reviews. Top options: Herman Miller Aeron (used, ~$600 - industry standard), Steelcase Gesture (~$1,100 new - most adjustable), or if budget-friendly, Branch Ergonomic Chair ($350 - great value). What's your budget range and do you have any specific pain points?",
+            'default': "I'm analyzing products across multiple retailers for you! In a real session, I would: 1) Search 15-20 major e-commerce platforms, 2) Analyze hundreds of reviews and specs, 3) Compare prices and features, 4) Generate a personalized shortlist based on your preferences. This demo is simplified, but the real I-Shopper does all this in seconds. Interested in learning more?"
+        };
     </script>
 </body>
 </html>
