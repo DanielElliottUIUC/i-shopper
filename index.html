@@ -50,7 +50,7 @@
         .stat-card:hover { transform: translateY(-4px); }
         .stat-number { font-size: 3rem; font-weight: 700; color: var(--primary); font-family: 'Playfair Display', serif; }
         .stat-label { font-size: 1rem; color: var(--text-light); margin-top: 0.5rem; }
-        .stats-bridge { font-size: 1.1rem; font-weight: 500; margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid rgba(45,95,76,0.15); color: var(--primary); }
+        .stats-bridge { font-size: 1.1rem; font-weight: 500; margin-top: 2.5rem; padding-top: 2rem; color: var(--primary); }
 
         /* How It Works — tabbed */
         .how-section { padding: 5rem 2rem; background: var(--bg); }
@@ -322,7 +322,7 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Is my data private?</div>
-                    <div class="faq-answer">Absolutely. Your shopping preferences and history are encrypted and never sold to third parties. We build your personalized model locally, and your data is used solely to improve your experience—not to target you with ads.</div>
+                    <div class="faq-answer">Absolutely. Your shopping preferences and history are encrypted and never sold to advertisers. Your data is used to improve your experience—full stop. Down the line, we plan to offer an optional program where you can choose to share your preferences with select brands in exchange for exclusive discounts passed directly to you. This will always be opt-in, transparent, and on your terms.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">How much does it cost?</div>
@@ -330,7 +330,7 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Can I-Shopper actually make purchases for me?</div>
-                    <div class="faq-answer">Yes! With your permission, I-Shopper can handle the entire purchase process. You'll always have final approval before any payment is processed, giving you full control while eliminating the hassle.</div>
+                    <div class="faq-answer">That's where we're headed. Our first version focuses on finding and recommending the right products so you can make confident decisions quickly. Full purchase automation—where I-Shopper handles checkout on your behalf—is coming in a future release. When it does, you'll always have final approval before any payment is processed.</div>
                 </div>
             </div>
         </div>
@@ -366,7 +366,7 @@
                 <ul>
                     <li><a href="team.html">Team</a></li>
                     <li><a href="careers.html">Careers</a></li>
-                    <li><a href="mailto:contact@i-shopper.ai">Contact</a></li>
+                    <li><a href="/cdn-cgi/l/email-protection#34575b5a40555740745d19475c5b444451461a555d">Contact</a></li>
                 </ul>
             </div>
         </div>
@@ -375,7 +375,7 @@
         </div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Mode tabs
         document.querySelectorAll('.mode-tab').forEach(tab => {
             tab.addEventListener('click', () => {
@@ -405,9 +405,3 @@
         // Waitlist form
         document.querySelector('.waitlist-form').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Thanks for joining the waitlist! We\'ll be in touch soon.');
-            e.target.reset();
-        });
-    </script>
-</body>
-</html>
