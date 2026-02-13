@@ -138,15 +138,12 @@
         }
 
         .team-photo {
-            width: 100%;
-            height: 300px;
-            background: linear-gradient(135deg, var(--primary-light) 0%, var(--primary) 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 6rem;
-            color: var(--white);
-        }
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
 
         .team-info {
             padding: 2rem;
@@ -395,7 +392,7 @@
             <div class="team-grid" style="grid-template-columns: 1fr; max-width: 600px; margin: 3rem auto 0;">
                 <!-- Daniel Elliott -->
                 <div class="team-card">
-                    <div class="team-photo">👤</div>
+                    <div class="team-photo"><img src="xiaocong.jpg" alt="Xiaocong Yang" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"></div>
                     <div class="team-info">
                         <h3 class="team-name">Daniel Elliott</h3>
                         <div class="team-title">CEO & Founder</div>
@@ -413,7 +410,7 @@
 
                 <!-- Xiaocong Yang -->
                 <div class="team-card">
-                    <div class="team-photo">[xiaocong.jpg]</div>
+                    <div class="team-photo"><img src="xiaocong.jpg" alt="Xiaocong Yang" style="width:100%; height:100%; object-fit:cover; border-radius:50%;"></div>
                     <div class="team-info">
                         <h3 class="team-name">Xiaocong Yang</h3>
                         <div class="team-title">CTO & Founder</div>
