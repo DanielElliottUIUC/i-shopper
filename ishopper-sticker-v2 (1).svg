@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120">
+  <!-- "i" dot — UIUC Orange -->
+  <circle cx="44" cy="20" r="12" fill="#E84A27"/>
+  <!-- "i" body — UIUC Orange -->
+  <rect x="32" y="42" width="24" height="54" rx="12" fill="#E84A27"/>
+  <!-- Shopping basket — Dark Green -->
+  <!-- Carry handle: arch over the basket -->
+  <path d="M76 72 C76 52, 96 52, 96 72" fill="none" stroke="#2c4a1e" stroke-width="4.5" stroke-linecap="round"/>
+  <!-- Basket body: trapezoid wider at top, narrower at bottom -->
+  <path d="M72 72 L100 72 L96 94 L76 94 Z" fill="none" stroke="#2c4a1e" stroke-width="4.5" stroke-linejoin="round" stroke-linecap="round"/>
+</svg>
