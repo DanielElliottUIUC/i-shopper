@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I-Shopper - Your Private Shopping Agent</title>
-    <link rel="icon" href="/ishopper-sticker-v2.svg" type="image/svg+xml" />
-    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="/i-shopper-logo.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -19,7 +18,7 @@
         h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 600; line-height: 1.2; }
         nav { position: fixed; top: 0; width: 100%; background: rgba(253, 252, 249, 0.95); backdrop-filter: blur(10px); z-index: 1000; border-bottom: 1px solid rgba(45, 95, 76, 0.1); }
         .nav-container { max-width: 1200px; margin: 0 auto; padding: 1.5rem 2rem; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; display: flex; align-items: center; }
         .nav-links { display: flex; gap: 2.5rem; list-style: none; }
         .nav-links a { text-decoration: none; color: var(--text); font-weight: 500; font-size: 0.95rem; transition: color 0.3s ease; }
         .nav-links a:hover { color: var(--primary); }
@@ -122,7 +121,11 @@
 
     <nav>
         <div class="nav-container">
-            <a href="index.html" class="logo">I-Shopper</a>
+            
+            <a href="index.html" class="logo">
+                <img src="i-shopper-logo.png" alt="I-Shopper Logo" style="height: 32px; vertical-align: middle; margin-right: 8px;">
+                I-Shopper
+            </a>
             <ul class="nav-links">
                 <li><a href="demo.html">Demo</a></li>
                 <li><a href="market.html">Market</a></li>
