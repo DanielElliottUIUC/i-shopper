@@ -88,7 +88,9 @@ export async function runRerankerAgent(
     response.content[0]?.type === "text" ? response.content[0].text : null;
   if (!raw) throw new Error("Reranker agent returned empty response");
 
-  const parsed = JSON.parse(raw) as RerankerOutput;
+  // Some models wrap output in ```json ... ``` despite the prompt instruction
+  const cleaned = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim();
+  const parsed = JSON.parse(cleaned) as RerankerOutput;
 
   // Enforce K ≤ 5 hard limit regardless of model output
   if (parsed.results.length > MAX_RESULTS) {

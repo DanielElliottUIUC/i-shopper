@@ -81,7 +81,8 @@ export async function runProfileAgent(
     response.content[0]?.type === "text" ? response.content[0].text : null;
   if (!raw) throw new Error("Profile agent returned empty response");
 
-  const updated = JSON.parse(raw) as ProfileData;
+  const cleaned = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/, "").trim();
+  const updated = JSON.parse(cleaned) as ProfileData;
 
   // Ensure budget values are non-negative integers (guard against model drift)
   for (const key of Object.keys(updated.budgetRanges)) {
