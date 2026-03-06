@@ -1,8 +1,7 @@
 import OpenAI from "openai";
 import type { UserProfile } from "@/lib/types/profile";
 import type { IntentAgentOutput } from "@/lib/types/session";
-
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+import { getOpenAIConfig } from "@/lib/llm-clients";
 
 function buildSystemPrompt(
   userProfile: UserProfile | null,
@@ -51,8 +50,9 @@ export async function runIntentAgent(
     { role: "user", content: userMessage },
   ];
 
+  const { client, model } = getOpenAIConfig();
   const response = await client.chat.completions.create({
-    model: "gpt-4o",
+    model,
     messages,
     response_format: { type: "json_object" },
     temperature: 0.2,

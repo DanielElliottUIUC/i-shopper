@@ -1,10 +1,7 @@
-import Anthropic from "@anthropic-ai/sdk";
 import type { ProfileData } from "@/lib/types/profile";
 import type { Product } from "@/lib/types/product";
 import type { UserDecision, FeedbackTag } from "@/lib/types/session";
-
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const MODEL = "claude-sonnet-4-6";
+import { getAnthropicConfig } from "@/lib/llm-clients";
 
 const SYSTEM_PROMPT = `You are a user preference profile updater for a shopping assistant.
 
@@ -60,8 +57,9 @@ export async function runProfileAgent(
   feedbackTags: FeedbackTag[],
   feedbackText: string | null
 ): Promise<ProfileData> {
-  const response = await client.messages.create({
-    model: MODEL,
+  const { messages, model } = getAnthropicConfig();
+  const response = await messages.create({
+    model,
     max_tokens: 2048,
     system: SYSTEM_PROMPT,
     messages: [

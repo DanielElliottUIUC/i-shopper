@@ -1,0 +1,79 @@
+/**
+ * LLM client factory with provider fallback:
+ *   OpenAI path:    AZURE_OPENAI_KEY + AZURE_OPENAI_ENDPOINT → AzureOpenAI
+ *                   otherwise → OpenAI (OPENAI_API_KEY)
+ *   Anthropic path: AWS_ACCESS_KEY_ID + AWS_SECRET_ACCESS_KEY → Bedrock
+ *                   otherwise → Anthropic (ANTHROPIC_API_KEY)
+ */
+
+import OpenAI, { AzureOpenAI } from "openai";
+import Anthropic from "@anthropic-ai/sdk";
+
+// ── OpenAI / Azure ────────────────────────────────────────────────────────────
+
+function usesAzure(): boolean {
+  return !!(process.env.AZURE_OPENAI_KEY && process.env.AZURE_OPENAI_ENDPOINT);
+}
+
+/**
+ * Returns an OpenAI-compatible client and the model/deployment name to use.
+ * AzureOpenAI extends OpenAI so the return type is always OpenAI.
+ */
+export function getOpenAIConfig(): { client: OpenAI; model: string } {
+  if (usesAzure()) {
+    const client = new AzureOpenAI({
+      apiKey: process.env.AZURE_OPENAI_KEY,
+      endpoint: process.env.AZURE_OPENAI_ENDPOINT,
+      apiVersion: process.env.AZURE_OPENAI_API_VERSION ?? "2024-02-01",
+      deployment: process.env.AZURE_OPENAI_DEPLOYMENT ?? "gpt-4o",
+    });
+    // For Azure, the model param in API calls must match the deployment name
+    return { client, model: process.env.AZURE_OPENAI_DEPLOYMENT ?? "gpt-4o" };
+  }
+  return {
+    client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY }),
+    model: "gpt-4o",
+  };
+}
+
+// ── Anthropic / Bedrock ───────────────────────────────────────────────────────
+
+function usesBedrock(): boolean {
+  return !!(
+    process.env.AWS_ACCESS_KEY_ID && process.env.AWS_SECRET_ACCESS_KEY
+  );
+}
+
+/**
+ * Returns the Anthropic messages interface and the model ID to use.
+ * Bedrock model IDs differ from the direct API — configure via BEDROCK_CLAUDE_MODEL
+ * if you need a specific version. Defaults to Claude 3.5 Sonnet v2 cross-region.
+ */
+export function getAnthropicConfig(): {
+  messages: Anthropic["messages"];
+  model: string;
+} {
+  if (usesBedrock()) {
+    // AnthropicBedrock extends Anthropic — same .messages interface
+    // eslint-disable-next-line @typescript-eslint/no-require-imports
+    const AnthropicBedrock = require("@anthropic-ai/sdk/bedrock").default;
+    const client = new AnthropicBedrock({
+      awsRegion: process.env.AWS_REGION ?? "us-east-1",
+      awsAccessKey: process.env.AWS_ACCESS_KEY_ID,
+      awsSecretKey: process.env.AWS_SECRET_ACCESS_KEY,
+      ...(process.env.AWS_SESSION_TOKEN && {
+        awsSessionToken: process.env.AWS_SESSION_TOKEN,
+      }),
+    }) as Anthropic;
+    return {
+      messages: client.messages,
+      model:
+        process.env.BEDROCK_CLAUDE_MODEL ??
+        "us.anthropic.claude-3-5-sonnet-20241022-v2:0",
+    };
+  }
+  return {
+    messages: new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY }).messages,
+    model: "claude-sonnet-4-6",
+  };
+}

@@ -1,10 +1,7 @@
-import Anthropic from "@anthropic-ai/sdk";
 import type { Product, RerankerOutput } from "@/lib/types/product";
 import type { UserProfile } from "@/lib/types/profile";
 import type { DetectedConstraint } from "@/lib/types/session";
-
-const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
-const MODEL = "claude-sonnet-4-6";
+import { getAnthropicConfig } from "@/lib/llm-clients";
 const MAX_RESULTS = 5;
 
 function getConfidenceThreshold(): number {
@@ -78,9 +75,10 @@ export async function runRerankerAgent(
   }
 
   const threshold = getConfidenceThreshold();
+  const { messages, model } = getAnthropicConfig();
 
-  const response = await client.messages.create({
-    model: MODEL,
+  const response = await messages.create({
+    model,
     max_tokens: 2048,
     system: buildSystemPrompt(userProfile, constraints, threshold),
     messages: [{ role: "user", content: buildUserMessage(candidates) }],
