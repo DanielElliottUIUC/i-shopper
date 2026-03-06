@@ -8,6 +8,7 @@
 
 import OpenAI, { AzureOpenAI } from "openai";
 import Anthropic from "@anthropic-ai/sdk";
+import AnthropicBedrock from "@anthropic-ai/bedrock-sdk";
 
 // ── OpenAI / Azure ────────────────────────────────────────────────────────────
 
@@ -54,9 +55,6 @@ export function getAnthropicConfig(): {
   model: string;
 } {
   if (usesBedrock()) {
-    // AnthropicBedrock extends Anthropic — same .messages interface
-    // eslint-disable-next-line @typescript-eslint/no-require-imports
-    const AnthropicBedrock = require("@anthropic-ai/sdk/bedrock").default;
     const client = new AnthropicBedrock({
       awsRegion: process.env.AWS_REGION ?? "us-east-1",
       awsAccessKey: process.env.AWS_ACCESS_KEY_ID,
@@ -64,9 +62,9 @@ export function getAnthropicConfig(): {
       ...(process.env.AWS_SESSION_TOKEN && {
         awsSessionToken: process.env.AWS_SESSION_TOKEN,
       }),
-    }) as Anthropic;
+    });
     return {
-      messages: client.messages,
+      messages: client.messages as unknown as Anthropic["messages"],
       model:
         process.env.BEDROCK_CLAUDE_MODEL ??
         "us.anthropic.claude-3-5-sonnet-20241022-v2:0",

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@anthropic-ai/bedrock-sdk": "^0.26.4",
     "@anthropic-ai/sdk": "^0.40.0",
     "@aws-sdk/client-bedrock-runtime": "^3.1003.0",
     "@supabase/supabase-js": "^2.49.4",
